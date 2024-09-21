@@ -1,0 +1,45 @@
+body {
+    background: black;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serifx;
+}
+
+div {
+    color: white;
+    border: 1px solid white;
+    margin: 10px;
+    padding: 10px;
+}
+
+h2 {
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-decoration: underline;
+}
+h3 {
+    font-size: larger;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-decoration: underline;
+}
+
+table {
+    border: 0px solid;
+}
+
+td {
+    border: 1px solid;
+    text-align: center;
+}
+
+a {
+    color: #8c8c8c;
+}
+
+a:hover {
+    color: white;
+}
+  
+::selection {
+    color: black;
+    background: white;
+}
