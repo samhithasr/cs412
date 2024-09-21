@@ -67,7 +67,7 @@ def quote(request):
     '''
     You'll need to make this a real docstring btw
     '''
-    template_name = 'quotes/quotes.html'
+    template_name = 'quotes/quote.html'
 
     context = {
         "qotd": random.choice(quoteList),
