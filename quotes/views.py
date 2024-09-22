@@ -3,11 +3,10 @@
 
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-import time
+#import time
 import random
 
-# lists?
-
+# lists
 imageList = ["https://cdn.britannica.com/07/254207-050-A30BAFA8/James-Baldwin-author-1975.jpg",
             "https://beenhere.org/wp-content/uploads/2017/08/baldwin-james-2017-photo-by-dmitri-kasterine.jpg", 
             "https://media.newyorker.com/photos/59095c1fc14b3c606c10543d/master/w_1920,c_limit/Cole-James-Baldwin-Stranger-In-The-Village.jpg",
@@ -34,9 +33,10 @@ quoteList = ["Neither love nor terror makes one blind: indifference makes one bl
 #     #create and return response to client
 #     return HttpResponse(response_text)
 
-def home(request): #idk how to make this blank but i'll figure that out
+def home(request): 
     '''
-    You'll need to make this a real docstring btw
+    Function to handle the URL request for /quotes/quotes (QotD home page, does the same thing as quotes page)
+    Delegate rendering to the template quotes/home.html
     '''
 
     template_name = 'quotes/home.html'
@@ -65,7 +65,8 @@ def home(request): #idk how to make this blank but i'll figure that out
 
 def quote(request):
     '''
-    You'll need to make this a real docstring btw
+    Function to handle the URL request for /quotes/quotes (QotD page)
+    Delegate rendering to the template quotes/quote.html
     '''
     template_name = 'quotes/quote.html'
 
@@ -80,7 +81,8 @@ def quote(request):
 
 def show_all(request):
     '''
-    You'll need to make this a real docstring btw
+    Function to handle the URL request for /quotes/show_all (the page that shows all loaded quotes and images)
+    Delegate rendering to the template quotes/show_all.html
     '''
     template_name = 'quotes/show_all.html'
 
@@ -94,7 +96,8 @@ def show_all(request):
 
 def about(request):
     '''
-    You'll need to make this a real docstring btw
+    Function to handle the URL request for /quotes/about (About page)
+    Delegate rendering to the template quotes/about.html
     '''
     template_name = 'quotes/about.html'
 
