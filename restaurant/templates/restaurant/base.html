@@ -1,0 +1,30 @@
+<!-- restaurant/templates/restaurant/base.html
+ A template with common HTML code that will be re-used by all of the other templates
+-->
+
+{% load static %}
+
+<html>
+    <head>
+        <title>[Restaurant name]</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+        <header> <!-- not sure if this is right, check later -->
+            <h1>[Restaurant name]</h1>
+        </header>
+
+        <nav>
+            <li><a href="{% url 'home' %}">Main Page</a></li>
+            <li><a href="{% url 'order' %}">Order Page</a></li>
+        </nav>
+
+    <body>
+        {% block content %}
+
+        {% endblock %}
+    </body>
+
+</html>
+
+    </body>
+</html>

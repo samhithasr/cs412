@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hw', ##this is the new app you added with [python manage.py startapp hw]
-    "quotes", #homework/assignment 3! quote of the day
+    'hw', ## this is the new app you added with [python manage.py startapp hw]
+    'quotes', # homework/assignment 3 quote of the day
+    'formdata', # in class example 9/24
+    'restaurant', # assignment 4
 ]
 
 MIDDLEWARE = [
