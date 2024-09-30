@@ -8,8 +8,6 @@ from . import views #from . = current directory, . import views imports [views.p
 #all of the URLs that are part of this app
 urlpatterns = [
     path(r'', views.home, name="home"), #letter r means can support regular expressions
-    # path(r'confirmation', views.confirmation, name="confirmation"),
     path(r'confirmation', views.confirmation, name="confirmation"),
     path(r'order', views.order, name="order"),
-    # path(r'show_all', views.show_all, name="show"),
 ]

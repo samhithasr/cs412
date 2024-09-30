@@ -69,7 +69,6 @@ def confirmation(request):
         for item in ordered:
             val = item.split(':')
             prices.append(int(val[1]))
-            # food.append(val[0])
             if(val[0] == "Burger"):
                 for t in burger:
                     toppings.append(t)
@@ -84,10 +83,9 @@ def confirmation(request):
             'instructions': instructions,
             'phone': phone,
             'email': email,
-            # 'current_time': current_time,
             'ordered': food,
             'total': total,
-            'ready': ready_time, # This is the line you change if format is weird
+            'ready': ready_time, 
         }
 
         return render(request, template_name, context)
