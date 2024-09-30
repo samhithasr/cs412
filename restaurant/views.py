@@ -88,7 +88,7 @@ def confirmation(request):
             'ordered': food,
             'total': total,
             'ready': ready_time, 
-            'current_time': time.time(),
+            'current_time': time.ctime(time.time()),
         }
 
         return render(request, template_name, context)
