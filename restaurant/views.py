@@ -65,14 +65,16 @@ def confirmation(request):
         food = []
         prices = []
         toppings = []
-        total = 0
         for item in ordered:
             val = item.split(':')
             prices.append(int(val[1]))
             if(val[0] == "Burger"):
                 for t in burger:
                     toppings.append(t)
-                food.append(val[0] + " $5 (" + ", ".join(toppings) + ")")
+                if not toppings:
+                    food.append(val[0] + " $5")
+                else:
+                    food.append(val[0] + " $5 (" + ", ".join(toppings) + ")")
             else:
                 food.append(val[0] + " $" + val[1])
         total = sum(prices)
