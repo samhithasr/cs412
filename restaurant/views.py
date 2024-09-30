@@ -63,9 +63,9 @@ def confirmation(request):
         # total = sum([int(price) for price in ordered]) # Final order total
 
         wait = random.randint(1800,3600) # 30-60 mins in seconds
-        ready_time = time.localtime(time.mktime(time.localtime()) + wait)
+        ready_time = time.ctime(time.time() + wait)
         # ready_time_str = time.ctime(ready_time) # makes ready_time readable...? Might get rid of this depending on what it looks like
-        ready_time_str = time.strftime("%H:%M:%S", ready_time)
+        #ready_time_str = time.strftime("%H:%M:%S", ready_time)
 
         food = []
         prices = []
@@ -92,7 +92,7 @@ def confirmation(request):
             # 'current_time': current_time,
             'ordered': food,
             'total': total,
-            'ready': ready_time_str, # This is the line you change if format is weird
+            'ready': ready_time, # This is the line you change if format is weird
         }
 
         return render(request, template_name, context)
