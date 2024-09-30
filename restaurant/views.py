@@ -80,7 +80,6 @@ def confirmation(request):
                 food.append(val[0] + " $" + val[1])
         total = sum(prices)
 
-
         context = {
             'name': name,
             'instructions': instructions,
