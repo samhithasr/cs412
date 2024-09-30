@@ -61,7 +61,7 @@ def confirmation(request):
         burger = request.POST.getlist('burger')
 
         wait = random.randint(1800,3600) # 30-60 mins in seconds
-        ready_time = time.ctime(time.time() + wait)
+        ready_time = time.ctime(time.localtime() + wait)
 
         food = []
         prices = []
@@ -89,7 +89,7 @@ def confirmation(request):
             'ordered': food,
             'total': total,
             'ready': ready_time, 
-            'current_time': time.ctime(time.time()),
+            'current_time': time.ctime(time.localtime()),
         }
 
         return render(request, template_name, context)
