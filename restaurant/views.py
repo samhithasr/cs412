@@ -12,9 +12,8 @@ import random
 
 def home(request): 
     '''
-    note to self: CHANGE DOCSTRINGS!!!!!!!
     Function to handle the URL request for /restaurant (restaurant home page)
-    Delegate rendering to the template restaurant/main.html
+    Delegate rendering to the template restaurant/main.html - about, hours, image, etc.
     '''
 
     template_name = 'restaurant/main.html'
@@ -59,13 +58,9 @@ def confirmation(request):
         email = request.POST['email']
         ordered = request.POST.getlist('menu') # Should get a list of the items that have been checked from the menu
         burger = request.POST.getlist('burger')
-        # current_time = time.ctime()
-        # total = sum([int(price) for price in ordered]) # Final order total
 
         wait = random.randint(1800,3600) # 30-60 mins in seconds
         ready_time = time.ctime(time.time() + wait)
-        # ready_time_str = time.ctime(ready_time) # makes ready_time readable...? Might get rid of this depending on what it looks like
-        #ready_time_str = time.strftime("%H:%M:%S", ready_time)
 
         food = []
         prices = []
