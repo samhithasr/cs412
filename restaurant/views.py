@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 import time
 import random
+TIME_ZONE = 'America/New_York'
 
 
 
