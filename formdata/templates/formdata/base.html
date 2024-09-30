@@ -1,0 +1,39 @@
+<!-- formdata/templates/formdata/base.html
+ A template with common HTML code that will be re-used by all of the other templates
+-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Hello, world!</title>
+        <!-- <link rel="stylesheet" href="/static/styles.css"> -->
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+
+    <nav>
+        <ul>   
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+    </nav>
+
+    <body>
+
+        {% block content}
+        <!-- Fill in this section with specific page detail -->
+        <!-- think of the base.html kind of like a "parent" to other html files; not class inheritance, but similar idea -->
+        {% endblock %}
+
+        <!-- <h1>about page</h1>
+
+        <p>Welcome to our first Django web application!</p>
+
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum, numquam harum labore sunt quasi eius possimus quos beatae praesentium, est, voluptates fuga. Ipsam optio, veritatis nobis unde eligendi voluptatem hic!
+        </p> -->
+
+        <hr>
+        This page was generated at {{current_time}}. <!-- Scriptlet -->
+
+    </body>
+</html>

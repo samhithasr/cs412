@@ -1,0 +1,25 @@
+<!-- quotes/templates/quotes/show_all.html -->
+
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+
+<h2>All quotes</h2>
+<table>
+    {% for item in quotes %}
+    <tr>
+        <td>{{item}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>All images</h2>
+<table>
+    {% for item in images %}
+    <tr>
+        <td><img src="{{item}}" alt="James Baldwin" width="300"></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

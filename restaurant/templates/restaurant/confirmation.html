@@ -1,0 +1,46 @@
+<!-- restaurant/confirmation.html
+ Show a response to the form submission. -->
+
+<!-- passed from views: 
+         context = {
+            'name': name,
+            'instructions': instructions,
+            'phone': phone,
+            'email': email,
+            'current_time': current_time,
+            'ordered': food,
+            'total': total,
+            'ready': ready_time_str, # This is the line you change if format is weird
+        }
+-->
+
+
+ {% extends 'restaurant/base.html' %}
+
+ {% block content %}
+
+<div>
+    <h2>Confirmation</h2>
+    Thank you for your order! <br> <br>
+
+    <b>Your order will be ready at: {{ready}}</b> <br>
+
+    <h3>Your order is confirmed:</h3> <br> 
+
+    {% for item in ordered %}
+        {{item}} <br>
+    {% endfor %} <br>
+
+    <h3>Special Instructions:</h3> <br>
+    {{instructions}} <br>
+
+    <b>Total: ${{total}}</b> <br>
+
+    <h3>Customer Information:</h3> <br>
+    {{name}} <br>
+    {{phone}} <br>
+    {{email}} <br>
+
+</div>
+
+ {% endblock %}
