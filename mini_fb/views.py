@@ -8,8 +8,8 @@ from .models import * ## import the models (e.g., Article)
 
 # class-based view
 # first; last; city; email; pfp
-class ShowAllView(ListView):
-    '''the view to show all Articles'''
+class ShowAllProfilesView(ListView):
+    '''the view to show all Profiles'''
     model = Profile # the model to display
-    template_name = 'blog/show_all.html'
+    template_name = 'mini_fb/show_all_profiles.html'
     context_object_name = 'profiles' # context variable to use in the template

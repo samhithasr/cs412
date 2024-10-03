@@ -1,0 +1,32 @@
+<!-- mini_fb/base.html -->
+<!-- mini_fb/templates/mini_fb/base.html -->
+
+<!-- 
+    - create all of the standard HTML tags (<head>, <body>, etc.)
+    - link in CSS file(s)
+    - create a standard header/footer to display on all pages
+    - provide navigation links for your application (not needed in this assignment, but for future parts)
+-->
+
+{% load static %}
+<html>
+    <head>
+        <title>fakebook</title>
+        <link rel="stylesheet" href="{% static 'styles-blog.css' %}"> <!-- note: create new stylesheet -->
+    </head>
+    <body>
+        <header>
+            <h1>Temporary header</h1>
+            <!-- Log in info -->
+        </header>
+    
+    {% block content %}
+    {% endblock %}   
+    
+    <footer>
+        <!-- time? -->
+         Temporary footer
+    </footer>
+  
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!-- mini_fb/templates/mini_fb/show_all.html -->
+
+{% extends 'mini_fb/base.html' %}
+
+
+<!-- display a context variable called profiles -->
+<!-- {{profiles}} -->
+
+{% block content %}
+<h1>All Profiles</h1>
+
+<div>
+    <table>
+        {% for person in profiles %}
+        <tr>
+            <td><img src="{{person.icon}}" alt="{{person.icon}}" width="150" height="150"></td>
+            <td>{{person}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+
+{% endblock %}
+
