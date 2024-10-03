@@ -1,5 +1,6 @@
-# mini_fb/models.py
-# Define the data objects for our application
+# File: mini_fb/models.py
+# Author: Samhitha Somavarapu (samhitha@bu.edu), 10/03/2024
+# Define the data objects for the mini_fb application.
 
 from django.db import models 
 

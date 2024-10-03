@@ -1,5 +1,6 @@
-## mini_fb/urls.py
-## description: URL patterns for the mini_fb app
+# File: mini_fb/urls.py
+# Author: Samhitha Somavarapu (samhitha@bu.edu), 10/03/2024
+# Description: URL patterns for the mini_fb app
 
 from django.urls import path #django.urls is a library for url management, path implements
 from django.conf import settings #.conf configuration package; importing settings so file knows about project level settings
