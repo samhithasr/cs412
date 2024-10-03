@@ -25,4 +25,6 @@ urlpatterns = [
     path("quotes/", include("quotes.urls")), #assignment 3
     path("formdata/", include("formdata.urls")), #9/24 in-class example
     path("restaurant/", include("restaurant.urls")), # assignment 4
+    path("blog/", include("blog.urls")), # 10/1
+    path("mini_fb/", include("mini_fb.urls")), # assignment 5
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
