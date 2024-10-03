@@ -10,5 +10,5 @@ from .views import ShowAllProfilesView # our view class definition
 urlpatterns = [
     # path(r'', views.home, name="home"), #letter r means can support regular expressions
     # path(r'about', views.about, name="about"),
-    path(r'', views.ShowAllProfilesView.as_view(), name="show_all"),
+    path(r'', views.ShowAllProfilesView.as_view(), name="show_all_profiles"),
 ]
