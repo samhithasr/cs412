@@ -1,5 +1,7 @@
-# models/views.py
-# define the views for the blog app
+# File: mini_fb/views.py
+# Author: Samhitha Somavarapu (samhitha@bu.edu), 10/03/2024
+# Description: The views file for the mini_fb application.
+
 from django.shortcuts import render
 
 # Create your views here.
