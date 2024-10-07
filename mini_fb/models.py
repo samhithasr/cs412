@@ -11,8 +11,9 @@ from django.db import models
 # Create your models here.
 
 class Profile(models.Model):
-    ''' Note: change docstring
-    Encapsulate the idea of one Article by some Author.'''
+    '''
+    Encapsulate the idea of one Profile.
+    Provide fields needed for Profile.'''
 
     # data attributes of a Profile:
     first = models.TextField(blank=False)
@@ -27,4 +28,3 @@ class Profile(models.Model):
 
         return f'{self.first} {self.last} from {self.city}. Email: {self.email}'
 
-        #quiz Q when do you need to run makemigrations command
