@@ -10,5 +10,7 @@ from .views import ShowAllView # our view class definition
 urlpatterns = [
     # path(r'', views.home, name="home"), #letter r means can support regular expressions
     # path(r'about', views.about, name="about"),
-    path(r'', views.ShowAllView.as_view(), name="show_all"),
+    path(r'', views.RandomArticleView.as_view(), name="random"),
+    path(r'show_all', views.ShowAllView.as_view(), name="show_all"),
+    path(r'article/<int:pk>', views.ArticleView.as_view(), name="article"), 
 ]

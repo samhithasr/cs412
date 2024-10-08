@@ -28,3 +28,5 @@ class Profile(models.Model):
 
         return f'{self.first} {self.last} from {self.city}. Email: {self.email}'
 
+        #quiz Q when do you need to run makemigrations command
+
