@@ -1,0 +1,41 @@
+<!-- 
+File: mini_fb/templates/mini_fb/show_profile.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 10/03/2024
+Description: The HTML file to show a specific profile in the 
+mini_fb application. This file "inherits" from base.html.
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+
+<!-- display a context variable called profiles -->
+<!-- {{profiles}} -->
+
+{% block content %}
+
+<!-- <h1>All Profiles</h1>
+
+<div>
+    <table>
+        {% for person in profiles %}
+    <profile>
+        <tr>
+            <td><img src="{{person.icon}}" alt="{{person.icon}}" width="150" height="150"></td>
+            <td>{{person}}</td>
+        </tr>
+    </profile>
+        {% endfor %}
+    </table> -->
+
+    <profile>
+        <h1>{{profile.first}} {{profile.last}}</h1>
+        <tr>
+            <td><img src="{{profile.icon}}" alt="{{profile.first}} {{profile.last}}" width="300" height="300"></td>
+            <td><br>{{profile.city}} <br> {{profile.email}}</td>
+    
+        </tr>
+    </profile>
+
+
+{% endblock %}
+

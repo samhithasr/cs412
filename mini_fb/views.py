@@ -5,7 +5,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import * ## import the models (e.g., Article)
 
 # class-based view
@@ -15,3 +15,10 @@ class ShowAllProfilesView(ListView):
     model = Profile # the model to display
     template_name = 'mini_fb/show_all_profiles.html'
     context_object_name = 'profiles' # context variable to use in the template
+
+class ShowProfilePageView(DetailView):
+    '''The view to show a specific Profile.'''
+
+    model = Profile
+    template_name = "mini_fb/show_profile.html"
+    context_object_name = "profile"
