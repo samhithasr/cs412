@@ -21,4 +21,12 @@ class ShowProfilePageView(DetailView):
 
     model = Profile
     template_name = "mini_fb/show_profile.html"
-    context_object_name = "profile"
+    # context_object_name = "profile"
+
+    def get_context_data(self, **kwargs: any):
+
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+
+        context['statuses'] = profile.get_status_messages()
+        return context

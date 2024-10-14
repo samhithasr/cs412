@@ -29,11 +29,24 @@ mini_fb application. This file "inherits" from base.html.
 
     <profile>
         <h1>{{profile.first}} {{profile.last}}</h1>
-        <tr>
-            <td><img src="{{profile.icon}}" alt="{{profile.first}} {{profile.last}}" width="300" height="300"></td>
-            <td><br>{{profile.city}} <br> {{profile.email}}</td>
-    
-        </tr>
+        <table>
+            <tr>
+                <td><img src="{{profile.icon}}" alt="{{profile.first}} {{profile.last}}" width="300" height="300"></td>
+                <td><br>{{profile.city}} <br> {{profile.email}}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Status Messages</th>
+            </tr>
+            {% for status in statuses %}
+            <tr>
+                <td>
+                    {{status.message}}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
     </profile>
 
 

@@ -3,6 +3,7 @@
 # Define the data objects for the mini_fb application.
 
 from django.db import models 
+# import time
 
 # This Profile model will need to include the 
 # following data attributes: first name, last name, 
@@ -28,5 +29,24 @@ class Profile(models.Model):
 
         return f'{self.first} {self.last} from {self.city}. Email: {self.email}'
 
+    def get_status_messages(self):
+        '''Return a List of all status messages associated with a Profile.'''
+
+        return StatusMessage.objects.filter(profile=self).order_by('-published')
         #quiz Q when do you need to run makemigrations command
+
+class StatusMessage(models.Model):
+    '''
+    Encapsulate idea of a StatusMessage for a Profile.
+    Provide fields needed.
+    '''
+    message = models.TextField(blank=False)
+    published = models.DateTimeField(auto_now=True)
+    # profile = Profile.objects.get(pk=self.kwargs['pk'])
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
+
+    def __str__(self):
+        '''Return a string representation of the StatusMessage.'''
+        return f'"{self.message}"'
+
 

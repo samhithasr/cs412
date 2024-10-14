@@ -19,7 +19,7 @@ mini_fb application. This file "inherits" from base.html.
         {% for person in profiles %}
     <profile>
         <tr>
-            <td><img src="{{person.icon}}" alt="{{person.icon}}" width="150" height="150"></td>
+            <td><a href="{% url 'show_profile' person.pk %}"><img src="{{person.icon}}" alt="{{person.icon}}" width="150" height="150"></a></td>
             <td><a href="{% url 'show_profile' person.pk %}">{{person}}</a></td>
         </tr>
     </profile>

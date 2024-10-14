@@ -32,11 +32,11 @@ td {
 }
 
 a {
-    color: #dfe3ee;
+    color: black;
 }
 
 a:hover {
-    color: #3b5998;
+    color: white;
 }
   
 ::selection {
