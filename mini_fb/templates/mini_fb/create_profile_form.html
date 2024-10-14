@@ -9,7 +9,7 @@ Profile. This file "inherits" from base.html.
 
 {% block content %}
 
-<h2>Post a status message for {{profile.first}} {{profile.last}}</h2>
+<h2>Create a new profile</h2>
 <form method="POST">
 {% csrf_token %}
 <table>
@@ -17,7 +17,7 @@ Profile. This file "inherits" from base.html.
 
     <tr>
         <td></td>
-        <td><input type="submit" name="submit" value="Post Status"></form>
+        <td><input type="submit" name="submit" value="Create Profile"></form>
             <form action="{% url 'show_all_profiles' %}">
                 <input type="submit" name="Cancel" value="Cancel">
             </form>
