@@ -35,18 +35,29 @@ mini_fb application. This file "inherits" from base.html.
                 <td><br>{{profile.city}} <br> {{profile.email}}</td>
             </tr>
         </table>
+        <br>
         <table>
             <tr>
                 <th>Status Messages</th>
             </tr>
+            <!-- Loops through any existing status messages for a specific Profile. If empty, says so. -->
             {% for status in statuses %}
             <tr>
                 <td>
                     {{status.message}}
                 </td>
             </tr>
+            {% empty %}
+            <tr>
+                <td>No status messages to display</td>
+            </tr>
             {% endfor %}
         </table>
+
+        <h4>
+            <a href="{% url 'create_status' profile.pk %}">Post status</a>
+        </h4>
+
     </profile>
 
 

@@ -3,6 +3,7 @@
 # Define the data objects for the mini_fb application.
 
 from django.db import models 
+from django.urls import reverse
 # import time
 
 # This Profile model will need to include the 
@@ -27,12 +28,16 @@ class Profile(models.Model):
     def __str__(self):
         '''Return a string representation of the object.'''
 
-        return f'{self.first} {self.last} from {self.city}. Email: {self.email}'
+        return f'{self.first} {self.last} from {self.city}.'
 
     def get_status_messages(self):
         '''Return a List of all status messages associated with a Profile.'''
 
         return StatusMessage.objects.filter(profile=self).order_by('-published')
+
+    def get_absolute_url(self):
+        '''Return URL to access the new profile.'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
         #quiz Q when do you need to run makemigrations command
 
 class StatusMessage(models.Model):
