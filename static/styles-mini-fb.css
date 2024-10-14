@@ -32,11 +32,11 @@ td {
 }
 
 a {
-    color: black;
+    color: white;
 }
 
 a:hover {
-    color: white;
+    color: black;
 }
   
 ::selection {
