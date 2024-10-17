@@ -31,7 +31,7 @@ class Profile(models.Model):
         return f'{self.first} {self.last} from {self.city}.'
 
     def get_status_messages(self):
-        '''Return a List of all status messages associated with a Profile.'''
+        '''Return a list of all status messages associated with a Profile.'''
 
         return StatusMessage.objects.filter(profile=self).order_by('-published')
 
