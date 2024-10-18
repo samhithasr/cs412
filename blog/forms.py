@@ -4,7 +4,7 @@ from django import forms
 from .models import Comment, Article
 
 class CreateCommentForm(forms.ModelForm):
-    '''A form to add a COmment on an Article to the database'''
+    '''A form to add a Comment on an Article to the database'''
 
     class Meta:
         '''Associate this HTML form with the Comment data model'''

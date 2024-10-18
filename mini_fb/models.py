@@ -54,4 +54,18 @@ class StatusMessage(models.Model):
         '''Return a string representation of the StatusMessage.'''
         return f'"{self.message}"'
 
+    def get_images(self):
+        '''Return a QuerySet of all Images on this StatusMessage.'''
 
+        # use the ORM to retrieve Images for which the FK is this StatusMessage
+        return Image.objects.filter(StatusMessage=self)
+
+class Image(models.Model):
+    '''
+    Encapsulates the idea of an image file, rather than a URL, that 
+    is stored in the Django media directory.
+    '''
+
+    statusMessage = models.ForeignKey("StatusMessage", on_delete=models.CASCADE)
+    image_file = models.ImageField(blank=True)
+    timestamp = models.DateTimeField(auto_now=True)

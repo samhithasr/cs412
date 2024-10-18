@@ -44,8 +44,14 @@ mini_fb application. This file "inherits" from base.html.
             {% for status in statuses %}
             <tr>
                 <td>
-                    {{status.message}}
+                <!-- Loops through any existing Images for this StatusMessage and displays them -->
+                {% for img in status.get_images %}
+                    <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}'>
+                {% endfor %}
                 </td>
+            </tr>
+            <tr>
+                {{status.message}}
             </tr>
             {% empty %}
             <tr>

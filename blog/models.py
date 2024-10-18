@@ -7,7 +7,7 @@ from django.urls import reverse
 
 class Article(models.Model):
     '''Encapsulate the idea of one Article by some author.'''
-
+    
     # data attributes of an Article:
     title = models.TextField(blank=False)
     author = models.TextField(blank=False)
