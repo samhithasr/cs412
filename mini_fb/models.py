@@ -58,7 +58,7 @@ class StatusMessage(models.Model):
         '''Return a QuerySet of all Images on this StatusMessage.'''
 
         # use the ORM to retrieve Images for which the FK is this StatusMessage
-        return Image.objects.filter(StatusMessage=self)
+        return Image.objects.filter(statusMessage=self)
 
 class Image(models.Model):
     '''

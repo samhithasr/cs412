@@ -43,15 +43,15 @@ mini_fb application. This file "inherits" from base.html.
             <!-- Loops through any existing status messages for a specific Profile. If empty, says so. -->
             {% for status in statuses %}
             <tr>
-                <td>
+                
                 <!-- Loops through any existing Images for this StatusMessage and displays them -->
                 {% for img in status.get_images %}
-                    <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}'>
+                    <td> 
+                    <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="300"> <br> {{status.message}}
+                    </td>
+                    {% empty %}
+                    <td>{{status.message}} </td>
                 {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                {{status.message}}
             </tr>
             {% empty %}
             <tr>
