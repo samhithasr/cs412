@@ -7,7 +7,7 @@ from django.urls import reverse
 from typing import Any
 
 # Create your views here.
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import * ## import the models (e.g., Article)
 from .forms import *
 
@@ -97,5 +97,19 @@ class CreateStatusMessageView(CreateView):
 
         # delegate work to superclass version of this method
         return super().form_valid(form)
+
+class UpdateProfileView(UpdateView) :
+    '''A view to update the existing Profile.'''
+
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = "mini_fb/update_profile_form.html"      
+
+    def get_success_url(self):
+        '''Return the URL to redirect to after successfully updating the profile.'''
+
+        # After updating, redirect to the profile's detail page
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        return reverse('show_profile', kwargs={'pk': profile.pk})
 
     

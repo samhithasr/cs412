@@ -21,3 +21,10 @@ class CreateStatusMessageForm(forms.ModelForm):
         '''Associate this HTML form with the StatusMessage data model.'''
         model = StatusMessage
         fields = ['message',]
+
+class UpdateProfileForm(forms.ModelForm):
+    '''A form for users to update their Profile.'''
+    class Meta:
+        '''Associate this HTML form with the Profile data model.'''
+        model = Profile
+        fields = ['city', 'email', 'icon',]
