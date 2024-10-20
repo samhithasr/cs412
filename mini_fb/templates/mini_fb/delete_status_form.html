@@ -1,0 +1,34 @@
+<!-- 
+ File: mini_fb/templates/mini_fb/delete_status_form.html
+ Author: Samhitha Somavarapu (samhitha@bu.edu), 10/19/2024
+ Description: The HTML file to show a form to delete a Status
+Message for a Profile. This file "inherits" from base.html.
+ -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<table>
+    {% for img in status.get_images %}
+        <tr>
+            <td> 
+                <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="300"><br>{{status.message}}</a>
+            </td>
+    {% empty %}
+            <td>{{status.message}} <br>{{status.published}} <br></td>
+    {% endfor %}
+        </tr>
+</table>
+    <h2>Are you sure you want to delete this status message?</h2>
+
+    <!-- form to confirm deletion -->
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes</button>
+    </form>
+
+    <!-- form to cancel and redirect to profile page -->
+    <form action="{% url 'show_profile' status.profile.pk %}">
+        <button type="submit">Cancel</button>
+    </form>
+{% endblock %}

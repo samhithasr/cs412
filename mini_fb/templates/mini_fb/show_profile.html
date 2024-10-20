@@ -35,8 +35,11 @@ mini_fb application. This file "inherits" from base.html.
                 <td><br>{{profile.city}} <br> {{profile.email}}</td>
             </tr>
         </table>
-        <br>
-        <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>
+
+        <h4>
+            <a href="{% url 'create_status' profile.pk %}">Post a new status</a> | <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>
+        </h4>
+
         <table>
             <tr>
                 <th>Status Messages</th>
@@ -48,10 +51,10 @@ mini_fb application. This file "inherits" from base.html.
                 <!-- Loops through any existing Images for this StatusMessage and displays them -->
                 {% for img in status.get_images %}
                     <td> 
-                    <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="300"> <br> {{status.message}}
+                    <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="300"><br>{{status.message}}<br>{{status.published}}<br><a href="{% url 'delete_status' status.pk %}">Delete</a> | <a href="{% url 'update_status' status.pk %}">Update</a>
                     </td>
                     {% empty %}
-                    <td>{{status.message}} </td>
+                    <td>{{status.message}} <br>{{status.published}} <br><a href="{% url 'delete_status' status.pk %}">Delete</a> | <a href="{% url 'update_status' status.pk %}">Update</a></td>
                 {% endfor %}
             </tr>
             {% empty %}
@@ -60,10 +63,6 @@ mini_fb application. This file "inherits" from base.html.
             </tr>
             {% endfor %}
         </table>
-
-        <h4>
-            <a href="{% url 'create_status' profile.pk %}">Post a new status</a>
-        </h4>
 
     </profile>
 

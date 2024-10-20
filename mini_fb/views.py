@@ -7,7 +7,7 @@ from django.urls import reverse
 from typing import Any
 
 # Create your views here.
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import * ## import the models (e.g., Article)
 from .forms import *
 
@@ -112,4 +112,32 @@ class UpdateProfileView(UpdateView) :
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         return reverse('show_profile', kwargs={'pk': profile.pk})
 
+class DeleteStatusMessageView(DeleteView):
+    '''A view to delete an existing StatusMessage.'''
+
+    model = StatusMessage
+    template_name = "mini_fb/delete_status_form.html"
+    context_object_name = 'status'
+
+    def get_success_url(self):
+        '''Return the URL to redirect to after successfully updating the profile.'''
+
+        # After updating, continue showing the Profile page.
+        profile = self.object.profile
+        return reverse('show_profile', kwargs={'pk': profile.pk})
+
+class UpdateStatusMessageView(UpdateView):
+    '''A view to update an existing StatusMessage.'''
+
+    model = StatusMessage
+    form_class = UpdateStatusForm
+    template_name = "mini_fb/update_status_form.html"
+    context_object_name = 'status'      
+
+    def get_success_url(self):
+        '''Return the URL to redirect to after successfully updating the StatusMessage.'''
+
+        # After updating, redirect to the profile's detail page
+        profile = self.object.profile
+        return reverse('show_profile', kwargs={'pk': profile.pk})
     
