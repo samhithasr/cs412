@@ -9,11 +9,13 @@ Message for a Profile. This file "inherits" from base.html.
 
 {% block content %}
 <table>
+    <!-- Posts the images in the status message -->
     {% for img in status.get_images %}
         <tr>
             <td> 
                 <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="300"><br>{{status.message}}</a>
             </td>
+    <!-- If there are no images in the status message, just post the text and time -->
     {% empty %}
             <td>{{status.message}} <br>{{status.published}} <br></td>
     {% endfor %}
