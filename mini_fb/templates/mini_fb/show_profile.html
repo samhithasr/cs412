@@ -51,11 +51,10 @@ mini_fb application. This file "inherits" from base.html.
                 <!-- Loops through any existing Images for this StatusMessage and displays them -->
                 {% for img in status.get_images %}
                     <td> 
-                    <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="300"><br>{{status.message}}<br>{{status.published}}<br><a href="{% url 'delete_status' status.pk %}">Delete</a> | <a href="{% url 'update_status' status.pk %}">Update</a>
+                    <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="300">
                     </td>
-                    {% empty %}
-                    <td>{{status.message}} <br>{{status.published}} <br><a href="{% url 'delete_status' status.pk %}">Delete</a> | <a href="{% url 'update_status' status.pk %}">Update</a></td>
                 {% endfor %}
+                <td>{{status.message}} <br>{{status.published}} <br><a href="{% url 'delete_status' status.pk %}">Delete</a> | <a href="{% url 'update_status' status.pk %}">Update</a></td>
             </tr>
             {% empty %}
             <tr>
