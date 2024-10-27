@@ -34,6 +34,7 @@ class ShowProfilePageView(DetailView):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
 
         context['statuses'] = profile.get_status_messages()
+        context['friends'] = profile.get_friends()
         return context
 
 class CreateProfileView(CreateView):

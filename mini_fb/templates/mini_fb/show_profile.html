@@ -59,9 +59,30 @@ mini_fb application. This file "inherits" from base.html.
             <!-- If there are no status messages -->
             {% empty %}
             <tr>
-                <td>No status messages to display</td>
+                <td>No status messages to display.</td>
             </tr>
             {% endfor %}
+        </table>
+
+        <br>
+
+        <table>
+            <tr>
+                <th>Friends</th>
+            </tr>
+            <!-- Loops through Friend list for the Profile, and displays links to the Friends' pages. -->
+             {% for friend in friends %}
+             <profile>
+                <tr>
+                    <td><a href="{% url 'show_profile' friend.pk %}"><img src="{{friend.icon}}" alt="{{friend.icon}}" width="150" height="150"></a></td>
+                    <td><a href="{% url 'show_profile' friend.pk %}">{{friend}}</a></td>
+                </tr>
+             </profile>
+             {% empty %}
+             <tr>
+                <td>No friends to display.</td>
+             </tr>
+             {% endfor %}
         </table>
 
     </profile>

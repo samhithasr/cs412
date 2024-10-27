@@ -38,7 +38,18 @@ class Profile(models.Model):
     def get_absolute_url(self):
         '''Return URL to access the new profile.'''
         return reverse('show_profile', kwargs={'pk': self.pk})
-        #quiz Q when do you need to run makemigrations command
+
+    def get_friends(self):
+        '''Return a list of Friends' Profiles.'''
+
+        # Collect cases where self is Profile 1 and Profile 2 for a Friend
+        ifProfile1 = Friend.objects.filter(profile1=self)
+        ifProfile2 = Friend.objects.filter(profile2=self)
+
+        # Create a list from ifProfile1 and ifProfile2
+        friends = [f.profile2 for f in ifProfile1] + [f.profile1 for f in ifProfile2]
+        return friends
+
 
 class StatusMessage(models.Model):
     '''
@@ -48,6 +59,9 @@ class StatusMessage(models.Model):
     message = models.TextField(blank=False)
     published = models.DateTimeField(auto_now=True)
     # profile = Profile.objects.get(pk=self.kwargs['pk'])
+
+    # Creates a one-to-many relationship between Profile and StatusMessage
+    # on_delete=models.CASCADE: deletes all StatusMessages associated with a Profile 
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -69,3 +83,19 @@ class Image(models.Model):
     statusMessage = models.ForeignKey("StatusMessage", on_delete=models.CASCADE)
     image_file = models.ImageField(blank=True)
     timestamp = models.DateTimeField(auto_now=True)
+
+class Friend(models.Model):
+    '''
+    Encapsulates the idea of a Friend, which Profiles can have. 
+    Connects Profiles to other Profiles. Provides fields needed
+    for the Friend model.
+    '''
+
+    profile1 = models.ForeignKey("Profile", related_name="profile1",on_delete=models.DO_NOTHING)
+    profile2 = models.ForeignKey("Profile", related_name="profile2",on_delete=models.DO_NOTHING)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        '''Return a string representation of the object.'''
+        return f"{self.profile1.first} {self.profile1.last} & {self.profile2.first} {self.profile2.last}"
+
