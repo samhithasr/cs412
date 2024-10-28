@@ -70,19 +70,43 @@ class Profile(models.Model):
     def get_friend_suggestions(self):
         '''Return a list of Profiles suggested to be Friends with.'''
 
+        # list of profiles without self
         withoutSelf = Profile.objects.exclude(pk=self.pk)
+
+        # lists of friends
         friends1 = Friend.objects.filter(profile1=self)
         friends2 = Friend.objects.filter(profile2=self)
 
+        # get primary keys for friends
         ids = set(friend.profile2.pk for friend in friends1) | set(friend.profile1.pk for friend in friends2)
 
-        allProfiles = withoutSelf.exclude(pk__in=ids)
-        # allProfiles = withoutSelf.exclude(pk__in=friends.profile1.pk)
-        # allProfiles = withoutSelf.exclude(pk__in=friends1.profile2.pk)
-        # allProfiles = allProfiles.exclude(pk__in=friends2.profile1.pk)
+        # exclude friends from suggestions
+        suggested = withoutSelf.exclude(pk__in=ids)
 
-        return allProfiles
+        return suggested
 
+    def get_news_feed(self):
+        '''Return StatusMessages from self (profile)'s friends, and self.'''
+
+        # that profile's status messages
+        selfStatuses = self.get_status_messages()
+
+        # Friends
+        friends1 = Friend.objects.filter(profile1=self)
+        friends2 = Friend.objects.filter(profile2=self)
+
+        # statuses = [self.get_status_messages()] + [status for friend in friends1 ]
+        statuses = StatusMessage.objects.none()
+        statuses = statuses | selfStatuses
+
+        # Loops through lists of friends and adds statuses
+        for friend in friends1:
+            statuses = friend.profile2.get_status_messages() | statuses
+        for friend in friends2:
+            statuses = friend.profile1.get_status_messages() | statuses
+
+        # Returns in reverse time order
+        return statuses.order_by('-published')
 
 class StatusMessage(models.Model):
     '''

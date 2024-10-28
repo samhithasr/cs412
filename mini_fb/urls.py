@@ -6,7 +6,7 @@ from django.urls import path #django.urls is a library for url management, path 
 from django.conf import settings #.conf configuration package; importing settings so file knows about project level settings
 from . import views #from . = current directory, . import views imports [views.py] from current directory
 from .views import ShowAllProfilesView, ShowProfilePageView, UpdateProfileView, DeleteStatusMessageView, UpdateStatusMessageView, \
-CreateFriendView, ShowFriendSuggestionsView # our view class definition 
+CreateFriendView, ShowFriendSuggestionsView, ShowNewsFeedView # our view class definition 
 
 #all of the URLs that are part of this app
 urlpatterns = [
@@ -22,4 +22,5 @@ urlpatterns = [
     path('status/<int:pk>/update', UpdateStatusMessageView.as_view(), name='update_status'),
     path('profile/<int:pk>/add_friend/<int:other_pk>', CreateFriendView.as_view(), name='add_friend'),
     path('profile/<int:pk>/friend_suggestions', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'),
+    path('profile/<int:pk>/news_feed', ShowNewsFeedView.as_view(), name='news_feed'),
 ]

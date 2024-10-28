@@ -11,6 +11,7 @@ mini_fb application. This file "inherits" from base.html.
 
 <h1>Friend Suggestions</h1>
 <table>
+    <!-- Loops through friend suggestions and displays: icon, name, and a link to the page. Plus a link to add as friend -->
     {% for suggestion in suggestions %}
     <profile>
         <tr>
@@ -22,5 +23,6 @@ mini_fb application. This file "inherits" from base.html.
     {% endfor %}
 </table>
 
+<!-- Back to the profile page -->
 <a href="{% url 'show_profile' profile.pk %}">Back to {{profile.first}} {{profile.last}}'s profile</a></td>
 {% endblock %}

@@ -1,0 +1,39 @@
+<!-- 
+File: mini_fb/templates/mini_fb/news_feed.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 10/27/2024
+Description: The HTML file to show a news feed for 
+a Profile. This file "inherits" from base.html.
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h1>{{profile.first}} {{profile.last}}'s News Feed | <a href="{% url 'show_profile' profile.pk %}">Back to {{profile.first}} {{profile.last}}'s page</a></h1>
+
+<div>
+    <table>
+        <!-- Loops through all Profiles and displays them, with a hyperlink to take you to that specific Profile. -->
+        {% for status in statuses %}
+        <tr>
+            <!-- Shows the profile picture of the profile associated with the status message -->
+            <td><a href="{% url 'show_profile' status.profile.pk %}"><img src="{{status.profile.icon}}" alt="{{status.profile.icon}}" width="75" height="75"></a></td>
+            <!-- This loop checks to see if there's any images in the status message -->
+            {% for img in status.get_images %}
+            <td> 
+            <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="75">
+            </td>
+            {% endfor %}
+            <!-- Shows the status, the author, and timestamp -->
+            <td>{{status}} <br> <a href="{% url 'show_profile' status.profile.pk %}">{{status.profile.first}} {{status.profile.last}}</a>
+            <br>{{status.published}}</td>
+        </tr>
+        {% empty %}
+            No status messages to display.
+        {% endfor %}
+    </table>
+
+</div>
+
+
+{% endblock %}
+

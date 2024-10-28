@@ -165,6 +165,24 @@ class ShowFriendSuggestionsView(DetailView):
         context = super().get_context_data(**kwargs)
         # Profile identified by PK from URL
         profile = Profile.objects.get(pk=self.kwargs['pk'])
+        # Get friend suggestions
         context['suggestions'] = profile.get_friend_suggestions()
+
+        return context
+
+class ShowNewsFeedView(DetailView):
+    '''A view to show a Profile's news feed.'''
+
+    model = Profile
+    template_name = 'mini_fb/news_feed.html'
+    context_object_name = 'profile'
+    
+    def get_context_data(self, **kwargs):
+        # context from superclass
+        context = super().get_context_data(**kwargs)
+        # profile from URL
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        # Get news feed
+        context['statuses'] = profile.get_news_feed()
 
         return context
