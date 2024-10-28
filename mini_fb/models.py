@@ -50,6 +50,39 @@ class Profile(models.Model):
         friends = [f.profile2 for f in ifProfile1] + [f.profile1 for f in ifProfile2]
         return friends
 
+    def add_friend(self, other):
+        '''Add a Friend to this Profile.'''
+
+        # Checks to prevent self-friending
+        if (self == other):
+            return
+
+        # Checks to see if a friendship exists between self and other
+        friendExists = Friend.objects.filter(profile1=self,profile2=other).exists() or \
+        Friend.objects.filter(profile1=other,profile2=self).exists()
+
+        # if the friendship exists, return; else, create new friendship
+        if friendExists:
+            return
+        else:
+            Friend(profile1=self,profile2=other).save()
+
+    def get_friend_suggestions(self):
+        '''Return a list of Profiles suggested to be Friends with.'''
+
+        withoutSelf = Profile.objects.exclude(pk=self.pk)
+        friends1 = Friend.objects.filter(profile1=self)
+        friends2 = Friend.objects.filter(profile2=self)
+
+        ids = set(friend.profile2.pk for friend in friends1) | set(friend.profile1.pk for friend in friends2)
+
+        allProfiles = withoutSelf.exclude(pk__in=ids)
+        # allProfiles = withoutSelf.exclude(pk__in=friends.profile1.pk)
+        # allProfiles = withoutSelf.exclude(pk__in=friends1.profile2.pk)
+        # allProfiles = allProfiles.exclude(pk__in=friends2.profile1.pk)
+
+        return allProfiles
+
 
 class StatusMessage(models.Model):
     '''

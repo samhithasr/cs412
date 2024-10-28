@@ -2,12 +2,12 @@
 # Author: Samhitha Somavarapu (samhitha@bu.edu), 10/03/2024
 # Description: The views file for the mini_fb application.
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from typing import Any
 
 # Create your views here.
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from .models import * ## import the models (e.g., Article)
 from .forms import *
 
@@ -27,7 +27,7 @@ class ShowProfilePageView(DetailView):
     # context_object_name = "profile"
 
     # overrides default get_context_data so that Foreign Key can
-    # be used by site get a specific Profile's status messages
+    # be used by site get a specific Profile's status messages and friends
     def get_context_data(self, **kwargs: any):
 
         context = super().get_context_data(**kwargs)
@@ -142,3 +142,29 @@ class UpdateStatusMessageView(UpdateView):
         profile = self.object.profile
         return reverse('show_profile', kwargs={'pk': profile.pk})
     
+class CreateFriendView(View):
+    '''A view to create a friendship between two Profiles.'''
+
+    def dispatch(self, request, *args, **kwargs):
+        '''Override dispatch to get info based on URL.'''
+        p1 = get_object_or_404(Profile, pk=kwargs['pk'])
+        p2 = get_object_or_404(Profile, pk=kwargs['other_pk'])
+
+        p1.add_friend(p2)
+        return redirect('show_profile', pk=p1.pk)
+
+class ShowFriendSuggestionsView(DetailView):
+    '''A view to show suggestions of Friends.'''
+
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        # context from superclass
+        context = super().get_context_data(**kwargs)
+        # Profile identified by PK from URL
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        context['suggestions'] = profile.get_friend_suggestions()
+
+        return context

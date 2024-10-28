@@ -1,0 +1,26 @@
+<!-- 
+File: mini_fb/templates/mini_fb/friend_suggestions.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 10/27/2024
+Description: The HTML file to show friend suggestions 
+mini_fb application. This file "inherits" from base.html.
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<h1>Friend Suggestions</h1>
+<table>
+    {% for suggestion in suggestions %}
+    <profile>
+        <tr>
+            <td><a href="{% url 'show_profile' suggestion.pk %}"><img src="{{suggestion.icon}}" alt="{{suggestion.icon}}" width="150" height="150"></a></td>
+            <td><a href="{% url 'show_profile' suggestion.pk %}">{{suggestion.first}} {{suggestion.last}}</a> <br>
+            <a href="{% url 'add_friend' profile.pk suggestion.pk %}">Add Friend</a></td>
+        </tr>
+    </profile>
+    {% endfor %}
+</table>
+
+<a href="{% url 'show_profile' profile.pk %}">Back to {{profile.first}} {{profile.last}}'s profile</a></td>
+{% endblock %}

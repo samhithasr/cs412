@@ -68,7 +68,7 @@ mini_fb application. This file "inherits" from base.html.
 
         <table>
             <tr>
-                <th>Friends</th>
+                <th>Friends | <a href="{% url 'friend_suggestions' profile.pk %}">See friend suggestions</a></td></th> 
             </tr>
             <!-- Loops through Friend list for the Profile, and displays links to the Friends' pages. -->
              {% for friend in friends %}
