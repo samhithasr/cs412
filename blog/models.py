@@ -2,12 +2,16 @@
 # Definte the data objects for our application
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User # imports Django user account(s)
 
 # Create your models here.
 
 class Article(models.Model):
     '''Encapsulate the idea of one Article by some author.'''
     
+    # every Article has one User
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # change to the orphan one maybe?
+
     # data attributes of an Article:
     title = models.TextField(blank=False)
     author = models.TextField(blank=False)
