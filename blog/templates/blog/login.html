@@ -16,6 +16,7 @@
     {% if request.GET.next %}
     <input type="hidden" name="next" value="{{request.GET.next}}">
     <input type="hidden" name="next" value="{% url 'show_all' %}">
+    {% endif %}
 </form>
 
 
