@@ -37,7 +37,13 @@ mini_fb application. This file "inherits" from base.html.
         </table>
 
         <h4>
-            <a href="{% url 'create_status' profile.pk %}">Post a new status</a> | <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>
+            <!-- Checks for a) logged in user and b) that the user is the one
+                associated with the profile. If both, lets user create a new
+                status message. -->
+            {% if user.is_authenticated and user == profile.user %}
+            <a href="{% url 'create_status' profile.pk %}">Post a new status</a>  
+                | <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>
+            {% endif %}
         </h4>
 
         <table>
@@ -54,7 +60,14 @@ mini_fb application. This file "inherits" from base.html.
                     <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' width="300">
                     </td>
                 {% endfor %}
-                <td>{{status.message}} <br>{{status.published}} <br><a href="{% url 'delete_status' status.pk %}">Delete</a> | <a href="{% url 'update_status' status.pk %}">Update</a></td>
+                <td>{{status.message}} <br>{{status.published}} <br>
+                    
+                <!-- Checks for a) logged in user and b) that the user is the one
+                    associated with the profile. If both, lets user delete
+                    and update status messages. -->
+                {% if user.is_authenticated and user == profile.user %}
+                    <a href="{% url 'delete_status' status.pk %}">Delete</a> | <a href="{% url 'update_status' status.pk %}">Update</a></td>
+                {% endif %}
             </tr>
             <!-- If there are no status messages -->
             {% empty %}
@@ -68,7 +81,13 @@ mini_fb application. This file "inherits" from base.html.
 
         <table>
             <tr>
-                <th>Friends | <a href="{% url 'friend_suggestions' profile.pk %}">See friend suggestions</a> | <a href="{% url 'news_feed' profile.pk %}">News Feed</a></td></th> 
+                <th>Friends 
+                    <!-- Checks for a) logged in user and b) that the user is the one
+                     associated with the profile. If both, lets user see friend suggestions
+                     in order to add friends, and lets user see their news feed as well. -->
+                    {% if user.is_authenticated and user == profile.user %}
+                    | <a href="{% url 'friend_suggestions' profile.pk %}">See friend suggestions</a> | <a href="{% url 'news_feed' profile.pk %}">News Feed</a></td></th> 
+                    {% endif %}
             </tr>
             <!-- Loops through Friend list for the Profile, and displays links to the Friends' pages. -->
              {% for friend in friends %}

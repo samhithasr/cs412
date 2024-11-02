@@ -4,6 +4,8 @@
 
 from django.db import models 
 from django.urls import reverse
+from django.contrib.auth.models import User # imports Django user account(s)
+
 # import time
 
 # This Profile model will need to include the 
@@ -16,6 +18,8 @@ class Profile(models.Model):
     '''
     Encapsulate the idea of one Profile.
     Provide fields needed for Profile.'''
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # change to the orphan one maybe?
 
     # data attributes of a Profile:
     first = models.TextField(blank=False)

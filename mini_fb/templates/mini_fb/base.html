@@ -27,11 +27,24 @@ Includes a header, navigation, and footer.
 
         <nav>
             <ul>
+                <!-- Include an if else-if block here; if logged in,
+                 a link to show /your/ profile.
+                 Also, specifically for profile pages: make sure you can
+                 only add status messages if you're logged in -->
                 <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
                 <li><a href="{% url 'create_profile' %}">Create New Profile</a></li>
             </ul>
         </nav>
     
+        <!-- request is the HTTP request object
+        request.user is the Django user associated
+        with this request. -->
+       {% if request.user.is_authenticated %}
+           Logged in as {{request.user}}.
+       {% else %}
+           Not logged in.
+       {% endif %}
+
     {% block content %}
     {% endblock %}   
     

@@ -1,18 +1,19 @@
 # blog/views.py
 # define the views for the blog app
+from django.http import HttpRequest
+from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from typing import Any
 
 # Create your views here.
-from django.views.generic import ListView, DetailView, CreateView ## NEW
+from django.views.generic import ListView, DetailView, CreateView 
 from .models import * ## import the models (e.g., Article)
 from .forms import * ## import the forms (e.g., CreateCommentForm)
 from django.contrib.auth.mixins import LoginRequiredMixin 
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.contrib.auth import login
-
+from django.contrib.auth.forms import UserCreationForm ## NEW
+from django.contrib.auth.models import User ## NEW
+from django.contrib.auth import login ## NEW
 import random
 
 # class-based view
@@ -23,11 +24,11 @@ class ShowAllView(ListView):
     context_object_name = 'articles' # context variable to use in the template
 
     def dispatch(self, *args, **kwargs):
-        '''Implement this method to add some debug tracing'''
+        '''implement this method to add some debug tracing'''
 
-        print("ShowAllView.dispatch")
-        # let superclass version of this method do its work
-        return super().dispatch(*args,**kwargs)
+        print(f"ShowAllView.dispatch; self.request.user={self.request.user}")
+        # let the superclass version of this method do its work:
+        return super().dispatch(*args, **kwargs)
 
 class RandomArticleView(DetailView):
     '''Display one Article selected at Random'''
@@ -103,6 +104,7 @@ class CreateCommentView(CreateView):
         # delegate work to superclass version of this method
         return super().form_valid(form)
 
+
 class CreateArticleView(LoginRequiredMixin, CreateView):
     '''A view class to create a new Article instance.'''
 
@@ -112,7 +114,7 @@ class CreateArticleView(LoginRequiredMixin, CreateView):
     def get_login_url(self) -> str:
         '''return the URL of the login page'''
         return reverse('login')
-
+    
     def form_valid(self, form):
         '''This method is called as part of the form processing.'''
 
@@ -130,20 +132,19 @@ class CreateArticleView(LoginRequiredMixin, CreateView):
 class RegistrationView(CreateView):
     '''Handle registration of new Users.'''
 
-    template_name = 'blog/register.html'
+    template_name = 'blog/register.html' # we write this
     form_class = UserCreationForm # built-in from django.contrib.auth.forms
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         '''Handle the User creation form submission.'''
-
-        # if we received an HTTP POST, we handle it
+        
+        # if we received an HTTP POST, we handle it 
         if self.request.POST:
             
             print(f"RegistrationView.dispatch: self.request.POST={self.request.POST}")
-
+            
             # reconstruct the UserCreateForm from the POST data
             form = UserCreationForm(self.request.POST)
-            print(f"form.errors={form.errors}")
 
             if not form.is_valid():
                 print(f"form.errors={form.errors}")
@@ -153,9 +154,9 @@ class RegistrationView(CreateView):
 
             # save the form, which creates a new User
             user = form.save() # this will commit the insert to the database
-            print(f"RegistrationView.dispatch: created user {user}")
+            print(f"RegistrationView.dispatch: created user {user}.")
 
-            # log the user in
+            # log the User in
             login(self.request, user)
             print(f"RegistrationView.dispatch: {user} is logged in.")
 
@@ -163,6 +164,7 @@ class RegistrationView(CreateView):
 
             # return a response:
             return redirect(reverse('show_all'))
+
 
         # let CreateView.dispatch handle the HTTP GET request
         return super().dispatch(request, *args, **kwargs)

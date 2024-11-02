@@ -10,6 +10,11 @@ from typing import Any
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from .models import * ## import the models (e.g., Article)
 from .forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin # allows for user authentication
+from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth.models import User
+from django.contrib.auth import login 
+import random
 
 # class-based view
 # first; last; city; email; pfp
@@ -49,11 +54,15 @@ class CreateProfileView(CreateView):
 
         return self.object.get_absolute_url()
 
-class CreateStatusMessageView(CreateView):
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''A view to create a Status Message for a Profile.'''
 
     form_class = CreateStatusMessageForm
     template_name = "mini_fb/create_status_form.html"
+
+    def get_login_url(self) -> str:
+        '''return the URL of the login page'''
+        return reverse('login')
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         # context from superclass
@@ -99,12 +108,19 @@ class CreateStatusMessageView(CreateView):
         # delegate work to superclass version of this method
         return super().form_valid(form)
 
-class UpdateProfileView(UpdateView) :
+# Comment to edit out later: LoginRequiredMixin
+# override dispatch in order to authenticate for
+# proper user
+class UpdateProfileView(LoginRequiredMixin, UpdateView) :
     '''A view to update the existing Profile.'''
 
     model = Profile
     form_class = UpdateProfileForm
-    template_name = "mini_fb/update_profile_form.html"      
+    template_name = "mini_fb/update_profile_form.html"   
+
+    def get_login_url(self) -> str:
+        '''return the URL of the login page'''
+        return reverse('login')   
 
     def get_success_url(self):
         '''Return the URL to redirect to after successfully updating the profile.'''
@@ -113,12 +129,16 @@ class UpdateProfileView(UpdateView) :
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         return reverse('show_profile', kwargs={'pk': profile.pk})
 
-class DeleteStatusMessageView(DeleteView):
+class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     '''A view to delete an existing StatusMessage.'''
 
     model = StatusMessage
     template_name = "mini_fb/delete_status_form.html"
     context_object_name = 'status'
+
+    def get_login_url(self) -> str:
+        '''return the URL of the login page'''
+        return reverse('login')
 
     def get_success_url(self):
         '''Return the URL to redirect to after successfully updating the profile.'''
@@ -127,13 +147,17 @@ class DeleteStatusMessageView(DeleteView):
         profile = self.object.profile
         return reverse('show_profile', kwargs={'pk': profile.pk})
 
-class UpdateStatusMessageView(UpdateView):
+class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     '''A view to update an existing StatusMessage.'''
 
     model = StatusMessage
     form_class = UpdateStatusForm
     template_name = "mini_fb/update_status_form.html"
     context_object_name = 'status'      
+
+    def get_login_url(self) -> str:
+        '''return the URL of the login page'''
+        return reverse('login')
 
     def get_success_url(self):
         '''Return the URL to redirect to after successfully updating the StatusMessage.'''
@@ -142,9 +166,13 @@ class UpdateStatusMessageView(UpdateView):
         profile = self.object.profile
         return reverse('show_profile', kwargs={'pk': profile.pk})
     
-class CreateFriendView(View):
+class CreateFriendView(LoginRequiredMixin, View):
     '''A view to create a friendship between two Profiles.'''
 
+    def get_login_url(self) -> str:
+        '''return the URL of the login page'''
+        return reverse('login')
+        
     def dispatch(self, request, *args, **kwargs):
         '''Override dispatch to get info based on URL.'''
         p1 = get_object_or_404(Profile, pk=kwargs['pk'])
