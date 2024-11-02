@@ -41,8 +41,8 @@ mini_fb application. This file "inherits" from base.html.
                 associated with the profile. If both, lets user create a new
                 status message. -->
             {% if user.is_authenticated and user == profile.user %}
-            <a href="{% url 'create_status' profile.pk %}">Post a new status</a>  
-                | <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>
+            <a href="{% url 'create_status' %}">Post a new status</a>  
+                | <a href="{% url 'update_profile' %}">Update Profile</a>
             {% endif %}
         </h4>
 
@@ -61,7 +61,7 @@ mini_fb application. This file "inherits" from base.html.
                     </td>
                 {% endfor %}
                 <td>{{status.message}} <br>{{status.published}} <br>
-                    
+
                 <!-- Checks for a) logged in user and b) that the user is the one
                     associated with the profile. If both, lets user delete
                     and update status messages. -->
@@ -81,12 +81,14 @@ mini_fb application. This file "inherits" from base.html.
 
         <table>
             <tr>
-                <th>Friends 
+                <th>Friends
                     <!-- Checks for a) logged in user and b) that the user is the one
                      associated with the profile. If both, lets user see friend suggestions
                      in order to add friends, and lets user see their news feed as well. -->
                     {% if user.is_authenticated and user == profile.user %}
-                    | <a href="{% url 'friend_suggestions' profile.pk %}">See friend suggestions</a> | <a href="{% url 'news_feed' profile.pk %}">News Feed</a></td></th> 
+                    | <a href="{% url 'friend_suggestions' %}">See friend suggestions</a> | <a href="{% url 'news_feed' %}">News Feed</a></td></th> 
+                    {% elif user.is_authenticated %}
+                         | <a href="{% url 'add_friend' profile.pk %}">Add {{profile.first}} {{profile.last}} as a friend</a>
                     {% endif %}
             </tr>
             <!-- Loops through Friend list for the Profile, and displays links to the Friends' pages. -->
