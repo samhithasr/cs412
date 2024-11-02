@@ -51,8 +51,38 @@ class CreateProfileView(CreateView):
 
     def get_success_url(self) -> str:
         '''Return the URL to redirect to on success.'''
-
         return self.object.get_absolute_url()
+
+    def get_context_data(self, **kwargs: Any):
+        '''Both UserCreationForm and CreateProfileForm in template'''
+        context = super().get_context_data(**kwargs)
+        create_form = UserCreationForm()
+        context['create_form'] = create_form
+
+        return context
+
+    def form_valid(self, form):
+        '''This method is called after the form is validated,
+        before saving data to the database.'''
+
+        # UserCreationForm with POST data
+        create_form = UserCreationForm(self.request.POST)
+
+        if form.is_valid() and create_form.is_valid():
+            # save UserCreationForm to database
+            user = create_form.save()
+            # FK 
+            form.instance.user = user
+            # form.save()
+
+            # log the user in
+            login(self.request, user)
+
+            # delegate valid form to superclass
+            return super().form_valid(form)
+
+        # if the form is invalid, return to it (superclass method)
+        return super().form_invalid(form)
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''A view to create a Status Message for a Profile.'''
@@ -109,7 +139,6 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         # delegate work to superclass version of this method
         return super().form_valid(form)
 
-# Comment to edit out later: LoginRequiredMixin
 # override dispatch in order to authenticate for
 # proper user
 class UpdateProfileView(LoginRequiredMixin, UpdateView) :
