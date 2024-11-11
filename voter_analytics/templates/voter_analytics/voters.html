@@ -5,9 +5,9 @@
 {% block content %}
 <div class="container">
 
-    <!-- <div>
-        {% include 'marathon_analytics/search.html' %}
-    </div> -->
+    <div>
+        {% include 'voter_analytics/search.html' %}
+    </div>
 
     <h1>Voters</h1>
     <div class="row">
@@ -15,6 +15,8 @@
             <tr>
                 <th>Name</th>
                 <!-- <th>Last Name</th> -->
+                <th>Address</th>
+                <th>Date of Birth</th>
                 <th>Party Affiliation</th>
                 <th>Voter Score</th>
                 <!-- <th>Division</th>
@@ -28,7 +30,9 @@
             <tr>
                 
                 <!-- <td>{{v.first}}</td> -->
-                <td>{{v.first}} {{v.last}}</td>
+                <td><a href="{% url 'show_voter' v.pk %}">{{v.first}} {{v.last}}</a></td>
+                <td>{{v.adNumber}} {{v.street}}</td>
+                <td>{{v.dob}}</td>
                 <td>{{v.party}}</td>
                 <td>{{v.voter_score}}</td>
                 <!-- <td>{{r.gender.0}} {{r.division}}</td>
@@ -46,7 +50,7 @@
         <ul class="pagination">
             {% if page_obj.has_previous %}
                 <li>
-                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+                    <span><a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a></span>
              
                 </li>
             {% endif %}
@@ -55,7 +59,7 @@
                 </li>
             {% if page_obj.has_next %}
                 <li>
-                    <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                    <span><a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a></span>
                 </li>
             {% endif %}
             </ul>

@@ -18,9 +18,12 @@ class Voter(models.Model):
     dor = models.DateField()
     party = models.CharField(max_length=2)
     precinct = models.CharField(max_length=2)
-    voter_score = models.IntegerField()
-    # partyString = ""
-
+    v20state = models.BooleanField(default=False) 
+    v21town = models.BooleanField(default=False)
+    v21primary = models.BooleanField(default=False)
+    v22general = models.BooleanField(default=False)
+    v23town = models.BooleanField(default=False)
+    voter_score = models.IntegerField(blank=True, null=True)
     
 
     def __str__(self):
@@ -55,12 +58,14 @@ def load_data():
 
             # create a new instance of Result object with this record from CSV
             voter = Voter(last=fields[1].title(), first=fields[2].title(), adNumber=fields[3],
-                            street=fields[4].title(), aptNum=fields[5], zipCode=fields[6], 
+                            street=fields[4].title(), aptNum=fields[5].strip(), zipCode=fields[6], 
                             dob=fields[7], dor=fields[8], party=fields[9].strip(), 
-                            precinct=fields[10], voter_score=fields[16])
+                            precinct=fields[10], v20state=(fields[11]=="TRUE"), v21town=(fields[12]=="TRUE"),
+                            v21primary=(fields[13]=="TRUE"), v22general=(fields[14]=="TRUE"),
+                            v23town=(fields[15]=="TRUE"), voter_score=fields[16])
    
             voter.save() # save to database
-            print(f'Created result: {voter}')
+            print(f'Created voter: {voter}')
         # handles the exception
         except Exception as e:
             print(f"Exception on {fields}: {e}")

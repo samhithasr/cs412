@@ -1,0 +1,105 @@
+<!-- 
+File: voter_analytics/templates/voter_analytics/show_voter.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 10/03/2024
+Description: The HTML file to show a specific profile in the 
+mini_fb application. This file "inherits" from base.html.
+-->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+
+<voter>
+    <h1>{{voter.first}} {{voter.last}}</h1>
+
+    <table>
+        <tr>
+            <td>Address:</td>
+            <td>{{voter.adNumber}} {{voter.street}} 
+                {% if voter.aptNum != "" %}
+                    Apt {{voter.aptNum}}
+                {% endif %}
+                 (<a href="https://www.google.com/maps/search/?api=1&query={{ voter.adNumber|urlencode }}+{{ voter.street|urlencode }},+0{{ voter.zipCode|urlencode }}" 
+                target="_blank">View on Google Maps</a>)
+            </td>
+        </tr>
+        <tr>
+            <td>Zip Code:</td>
+            <td>0{{voter.zipCode}}</td>
+        </tr>
+        <tr>
+            <td>Date of Birth:</td>
+            <td>{{voter.dob}}</td>
+        </tr>
+        <tr>
+            <td>Date of Registration:</td>
+            <td>{{voter.dor}}</td>
+        </tr>
+        <tr>
+            <td>Party Affiliation:</td>
+            <td>{% if voter.party == "D" %}
+                    Democratic
+                {% elif voter.party == "R" %}
+                    Republican
+                {% elif voter.party == "CC" %}
+                    Constitution Party
+                {% elif voter.party == "L" %}
+                    Libertarian Party
+                {% elif voter.party == "T" %}
+                    Tea Party
+                {% elif voter.party == "O" %}
+                    Other
+                {% elif voter.party == "G" %}
+                    Green Party
+                {% elif voter.party == "J" %}
+                    Independent Party
+                {% elif voter.party == "Q" %}
+                    Reform Party
+                {% elif voter.party == "FF" %}
+                    Freedom Party
+                {% else %}
+                    Unenrolled
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Precinct:</td>
+            <td>{{voter.precinct}}</td>
+        </tr>
+        <tr>
+            <td>Voter Score:</td>
+            <td>{{voter.voter_score}}</td>
+        </tr>
+        <tr>
+            <td>Voted in: </td>
+            <td>
+                {% if voter.voter_score == 0 %}
+                    {{voter.first}} {{voter.last}} has not voted in any recent elections.
+                {% endif %}
+
+                {% if voter.v20state %}
+                    2020 State Election <br>
+                {% endif %}
+
+                {% if voter.v21town %}
+                    2021 Town Election <br>
+                {% endif %}
+
+                {% if voter.v21primary %}
+                    2021 Primary Election <br>
+                {% endif %}
+
+                {% if voter.v22general %}
+                    2022 General Election <br>
+                {% endif %}
+
+                {% if voter.v23town %}
+                    2023 Town Election 
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+</voter>
+
+{% endblock %}

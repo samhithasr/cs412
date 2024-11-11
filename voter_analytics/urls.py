@@ -4,10 +4,12 @@
 
 from django.urls import path
 from . import views 
-from .views import VotersListView
+from .views import VotersListView, ShowVoterDetailView
 urlpatterns = [
     # map the URL (empty string) to the view
     path(r'', views.VotersListView.as_view(), name='home'),
+    path(r'voters', views.VotersListView.as_view(), name='voters'),
+    path(r'voter/<int:pk>', views.ShowVoterDetailView.as_view(),name='show_voter')
     # path(r'results', views.ResultsListView.as_view(), name='results'),
     
 ]

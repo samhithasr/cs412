@@ -28,7 +28,7 @@ urlpatterns = [
     path("blog/", include("blog.urls")), # 10/1
     path("mini_fb/", include("mini_fb.urls")), # assignment 5
     path("marathon_analytics", include("marathon_analytics.urls")), # in class 11/5
-    path("voter_analytics", include("voter_analytics.urls")), # assignment 10
+    path("voter_analytics/", include("voter_analytics.urls")), # assignment 10
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
