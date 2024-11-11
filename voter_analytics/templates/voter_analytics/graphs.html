@@ -1,4 +1,10 @@
-<!-- templates/voter_analytics/graphs.html -->
+<!--
+File: voter_analytics/templates/voter_analytics/graphs.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 11/11/2024
+Description: The graphs HTML file for the voter_analytics
+application. Displays histograms and a pie chart.
+-->
+
 {% extends 'voter_analytics/base.html' %}
 {% block content %}
 <div class="container">
@@ -8,7 +14,7 @@
     </div>
     
     <h1>Graphs</h1>
-        <!-- display the bar chart with runners passed -->
+        <!-- display the histogram by birth year -->
         <div class="row">
             {{bar_div|safe}}
         </div>
@@ -18,6 +24,7 @@
             {{pie_div|safe}} <!-- |safe means to "do" (render) the HTML code -->
         </div>
 
+        <!-- display histogram of voter scores -->
         <div class="row">
             {{bar2_div|safe}}
         </div>
