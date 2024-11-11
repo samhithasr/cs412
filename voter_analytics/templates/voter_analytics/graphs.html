@@ -1,0 +1,26 @@
+<!-- templates/voter_analytics/graphs.html -->
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+<div class="container">
+
+    <div>
+        {% include 'voter_analytics/search_graphs.html' %}
+    </div>
+    
+    <h1>Graphs</h1>
+        <!-- display the bar chart with runners passed -->
+        <div class="row">
+            {{bar_div|safe}}
+        </div>
+
+        <!-- show the pie chart -->
+        <div>
+            {{pie_div|safe}} <!-- |safe means to "do" (render) the HTML code -->
+        </div>
+
+        <div class="row">
+            {{bar2_div|safe}}
+        </div>
+    </div>
+    
+{% endblock %}

@@ -1,11 +1,12 @@
-## marathon_analytics/urls.py
-## description: URL patterns for the qotd app
+# marathon_analytics/urls.py
 
 from django.urls import path
-from . import views 
+from .views import *
+
 urlpatterns = [
-    # map the URL (empty string) to the view
-    path(r'', views.ResultsListView.as_view(), name='home'),
-    path(r'results', views.ResultsListView.as_view(), name='results'),
-    
+    path('', ResultsListView.as_view(), name="home"),
+    path(r'results', ResultsListView.as_view(), name="results"),
+    path(r'result/<int:pk>', ResultDetailView.as_view(), name="result_detail"), ## NEW
+
+
 ]

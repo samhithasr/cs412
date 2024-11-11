@@ -19,7 +19,7 @@ mini_fb application. This file "inherits" from base.html.
                 {% if voter.aptNum != "" %}
                     Apt {{voter.aptNum}}
                 {% endif %}
-                 (<a href="https://www.google.com/maps/search/?api=1&query={{ voter.adNumber|urlencode }}+{{ voter.street|urlencode }},+0{{ voter.zipCode|urlencode }}" 
+                 (<a href="https://www.google.com/maps/search/?api=1&query={{ voter.adNumber}}+{{ voter.street}},+0{{ voter.zipCode}}" 
                 target="_blank">View on Google Maps</a>)
             </td>
         </tr>
@@ -57,8 +57,10 @@ mini_fb application. This file "inherits" from base.html.
                     Reform Party
                 {% elif voter.party == "FF" %}
                     Freedom Party
-                {% else %}
+                {% elif voter.party == "U" %}
                     Unenrolled
+                {% else %}
+                    {{voter.party}}
                 {% endif %}
             </td>
         </tr>
