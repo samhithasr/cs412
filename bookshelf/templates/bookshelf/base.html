@@ -1,0 +1,48 @@
+<!--
+File: bookshelf/templates/bookshelf/base.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 11/28/2024
+Description: The base HTML file for the bookshelf application.
+Includes a header, navigation, and footer.
+-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Bookshelf</title>
+        <!-- <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/256/124/124010.png"> -->
+        <link rel="stylesheet" href="{% static 'styles-bookshelf.css' %}"> <!-- note: create new stylesheet -->
+    </head>
+    <body>
+        <header>
+            <h1>Bookshelf</h1>
+            <!-- Log in info -->
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="{% url 'book_show_all_profiles' %}">All Profiles</a></li>
+                <!-- Add more nav links - bookshelves perhaps, maybe a 'newsfeed' -->
+                <li><a href="{% url 'show_all_books' %}">All Books</a></li>
+                {% if request.user.is_authenticated %}
+                    <!-- <li><a href="{% url 'news_feed' %}">News Feed</a></li> -->
+                    <li>
+                        <form action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Logout">
+                        </form>
+                    </li>
+                    <!-- <li><a href="{% url 'logout' %}">Log Out</a></li> -->
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'book_create_profile' %}">Create New Profile</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    {% block content %}
+    {% endblock %}   
+    <footer>
+         Bookshelf (2024-)
+    </footer>
+    </body>
+</html>

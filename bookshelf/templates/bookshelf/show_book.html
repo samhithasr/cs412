@@ -1,0 +1,83 @@
+<!-- 
+ File: bookshelf/templates/bookshelf/show_book.html
+ Author: Samhitha Somavarapu (samhitha@bu.edu), 11/28/2024
+ Description: The HTML file to show a specific book in the
+ bookshelf application. This file 'inherits' from base.html
+ -->
+ {% extends 'bookshelf/base.html' %}
+
+ {% block content %}
+ 
+ <!-- Book Section: Display the book's title, author, and cover image -->
+ <book>
+     <h1>{{book.title}} by {{book.author}}</h1>
+     <table>
+         <tr>
+             <!-- Display the book cover image -->
+             <td><img src="{{book.cover}}" alt="{{book.title}}" width="300" height="600" class="book-cover"></td>
+             <!-- Display book details such as description, publication year, and ISBN -->
+             <td>
+                 <p>{{book.description}}</p>
+                 <p>Year published: {{book.year}}</p>
+                 <p>ISBN: {{book.isbn}}</p>
+             </td>
+         </tr>
+     </table>
+ </book>
+ 
+ <!-- Bookshelves Section: List bookshelves that contain this book -->
+ <table class="bookshelf-table">
+     <tr>
+         <th>Bookshelves with this book:</th>
+     </tr>
+     <!-- Loop through each bookshelf that contains this book -->
+     {% for shelf in shelves %}
+     <tr>
+         <td>
+             <!-- Link to the bookshelf page with the shelf name and the profile owner -->
+             <a href="{% url 'show_bookshelf' shelf.shelf.pk %}">{{shelf.shelf.name}}</a> by @<a href="{% url 'book_show_profile' shelf.shelf.profile.pk %}">{{shelf.shelf.profile.username}}</a>
+         </td>
+     </tr>
+     {% empty %}
+     <!-- Message if no bookshelves contain this book -->
+     <tr>
+         <td>
+             This book is not in any bookshelves.
+         </td>
+     </tr>
+     {% endfor %}
+ </table>
+ 
+ <!-- Reviews Section: Display reviews for this book -->
+ <table class="reviews-table">
+     <tr>
+         <th>Reviews for this book:</th>
+     </tr>
+     <!-- Loop through each review for this book -->
+     {% for review in reviews %}
+     <tr>
+         <td>
+             <!-- Link to the reviewer's profile and display their review text -->
+             Review by <a href="{% url 'book_show_profile' review.profile.pk %}">{{review.profile.username}}</a>: <br> {{review.text}}
+         </td>
+     </tr>
+     {% empty %}
+     <!-- Message if there are no reviews for this book -->
+     <tr>
+         <td>
+             This book does not have any reviews.
+         </td>
+     </tr>
+     {% endfor %}
+ </table>
+ 
+ <!-- Review Submission Link: Only display if the user is authenticated -->
+ {% if user.is_authenticated %}
+ <div class="review-link">
+     <!-- Link to add a new review for this book -->
+     <a href="{% url 'create_review' pk=book.pk %}">Add a Review</a>
+ </div>
+ {% endif %}
+ 
+ {% endblock %}
+ 

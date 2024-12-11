@@ -1,0 +1,17 @@
+<!--
+File: bookshelf/templates/bookshelf/update_book_form.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 12/10/2024
+Description: The update book form. Inherits from base.html.
+
+
+-->
+
+{% extends 'bookshelf/base.html' %}
+{% block content %}
+<h2>Update Book</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Book</button>
+</form>
+{% endblock %}

@@ -1,0 +1,67 @@
+<!--
+File: bookshelf/templates/bookshelf/show_bookshelf.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 12/10/2024
+Description: The show bookshelf page. Inherits from base.html.
+-->
+
+{% extends 'bookshelf/base.html' %}
+
+{% block content %}
+
+<!-- Page Header: Display the bookshelf owner’s display name and bookshelf name -->
+<h1><a href="{% url 'book_show_profile' bookshelf.profile.pk %}">{{bookshelf.profile.display_name}}'s</a> shelf: {{bookshelf.name}}</h1>
+<!-- Display the description of the bookshelf -->
+<p>{{bookshelf.description}}</p>
+
+<!-- Table displaying the books on the bookshelf -->
+<table class="bookshelf">
+    <!-- Loop through each book in the bookshelf -->
+    {% for book in books %}
+    <tr>
+        <td class="book-cell">
+            <!-- Display the cover image of the book -->
+            <img src="{{book.book.cover}}" alt="{{book.book.title}}">
+            <!-- Link to view the book details -->
+            <p><a href="{% url 'show_book' book.book.pk %}">{{book.book.title}}</a></p>
+            <!-- Display the author of the book -->
+            <p>{{book.book.author}}</p>
+        </td>
+    </tr>
+    {% empty %}
+    <!-- Message if the bookshelf is empty -->
+    <tr>
+        <td>
+            This bookshelf is empty.
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- Table displaying comments on the bookshelf -->
+<table>
+    <tr>
+        <th>Comments on this bookshelf:</th>
+    </tr>
+    <!-- Loop through each comment on the bookshelf -->
+    {% for comment in comments %}
+    <tr>
+        <td>
+            <!-- Display the comment author's username and text -->
+            @{{comment.profile.username}}: {{comment.text}}
+        </td>
+    </tr>
+    {% empty %}
+    <!-- Message if there are no comments on the bookshelf -->
+    <tr>
+        <td>
+            There are no comments on this bookshelf.
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- Option to add a new book to the bookshelf -->
+<!-- <h2>Add a New Book to Shelf:</h2>
+<p><a href="{% url 'add_book' bookshelf.pk %}">Add a New Book</a></p> -->
+
+{% endblock %}

@@ -1,0 +1,16 @@
+<!-- 
+File: bookshelf/templates/bookshelf/logged_out.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 11/10/2024
+Description: The HTML file to let users know that they
+have logged out. This file "inherits" from base.html.
+-->
+
+{% extends 'bookshelf/base.html'  %}
+
+{% block content %}
+
+<h2>You have logged out!</h2>
+
+<p><a href="{% url 'login' %}">Click here to log back in.</a></p>
+
+{% endblock %}

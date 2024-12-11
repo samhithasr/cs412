@@ -1,0 +1,28 @@
+<!-- 
+File: bookshelf/templates/bookshelf/show_all_books.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 11/28/2024
+Description: The HTML file to show all books in the 
+bookshelf application. This file "inherits" from base.html.
+-->
+
+{% extends 'bookshelf/base.html' %}
+
+<!-- display a context variable called books -->
+
+{% block content %}
+
+<h1>All Books</h1>
+<div class="bookshelf">
+    <!-- Loop through books to link to them -->
+    {% for book in books %}
+    <div class="book-cell">
+        <a href="{% url 'show_book' book.pk %}">
+            <img src="{{book.cover}}" alt="{{book.title}}" width="150" height="300">
+        </a>
+        <p><a href="{% url 'show_book' book.pk %}">{{book.title}}</a></p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+

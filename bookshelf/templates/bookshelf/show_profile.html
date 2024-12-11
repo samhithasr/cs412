@@ -1,0 +1,72 @@
+<!--
+File: bookshelf/templates/bookshelf/show_profile.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 12/10/2024
+Description: The show profile page. Inherits from base.html.
+-->
+
+{% extends 'bookshelf/base.html' %}
+
+{% block content %}
+
+<div class="profile-grid">
+    <div class="profile-card">
+        <!-- Display the user's profile picture -->
+        <img src="{{profile.icon}}" alt="{{profile.username}}" width="300" height="300">
+        <!-- Display the user's display name and username -->
+        <h1>{{profile.display_name}} (@{{profile.username}})</h1>
+        <!-- Display the user's biography -->
+        <p>{{profile.bio}}</p>
+        <!-- Display the user's email address -->
+        <p>Email: {{profile.email}}</p>
+    </div>
+</div>
+
+<div class="bookshelves">
+    <!-- Section header for the user's bookshelves -->
+    <h2>{{profile.display_name}}'s Bookshelves</h2>
+    <ul>
+        <!-- Loop through each bookshelf associated with the profile -->
+        {% for shelf in bookshelves %}
+        <li>
+            <!-- Link to view the bookshelf -->
+            <a href="{% url 'show_bookshelf' shelf.pk %}">{{shelf.name}}</a>
+            <!-- Option to delete the bookshelf if the user owns it -->
+            {% if user.is_authenticated and user == profile.user %}
+                | <a href="{% url 'delete_bookshelf' shelf.pk %}">Delete</a>
+            {% endif %}
+        </li>
+        {% empty %}
+        <!-- Message if no bookshelves exist -->
+        <li>This profile has not created any bookshelves.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="actions">
+    <!-- Actions available to the profile owner -->
+    <h4>
+        {% if user.is_authenticated and user == profile.user %}
+        <a href="{% url 'create_bookshelf' %}">Create a new bookshelf</a> |
+        <a href="{% url 'update_bio' %}">Update Profile</a>
+        {% endif %}
+    </h4>
+</div>
+
+<div class="reviews">
+    <!-- Section header for the user's reviews -->
+    <h2>Reviews by {{profile.display_name}}:</h2>
+    <ul>
+        <!-- Loop through each review written by the profile owner -->
+        {% for review in reviews %}
+        <li>
+            <!-- Link to the book associated with the review -->
+            Review for <a href="{% url 'show_book' review.book.pk %}">{{review.book.title}}</a>: <br> {{review.text}}
+        </li>
+        {% empty %}
+        <!-- Message if no reviews exist -->
+        <li>This profile has not written any reviews.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

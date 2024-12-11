@@ -20,11 +20,21 @@ class Profile(models.Model):
     display_name = models.CharField(max_length=30, blank=False)
     email = models.CharField(max_length=120, blank=False)
     created = models.DateField(auto_now=True)
-    icon = models.ImageField(blank=True)
+    # icon = models.ImageField(blank=True)
+    icon = models.URLField(blank=True)
     bio = models.TextField(blank=True)
 
     def __str__(self):
         return f'{self.display_name} (@{self.username})'
+
+    def get_reviews(self):
+        '''Return a List of all Reviews associated with this Profile.'''
+        return Review.objects.filter(profile=self).order_by('-published')
+
+    def get_bookshelves(self):
+        '''Return a List of all Bookshelves associated with this Profile.'''
+        return Bookshelf.objects.filter(profile=self) # I want to make this alphabetical
+
 
 class Bookshelf(models.Model):
     '''
@@ -52,6 +62,10 @@ class Bookshelf(models.Model):
         '''Return the books in this Bookshelf.'''
         return Shelves.objects.filter(shelf=self)
 
+    def get_comments(self):
+        '''Return the Comments on this Bookshelf.'''
+        return Comment.objects.filter(bookshelf=self).order_by('-published')
+
 class Author(models.Model):
     '''
     Encapsulates an Author. Contains:
@@ -75,11 +89,20 @@ class Book(models.Model):
     year = models.IntegerField()
     isbn = models.IntegerField(blank=True)
     description = models.TextField(blank=True)
-    cover = models.ImageField(blank=True)
+    # cover = models.ImageField(blank=True)
+    cover = models.URLField(blank=True)
     # Genre as a dropdown box? 
 
     def __str__(self):
         return f'{self.title} by {self.author}'
+
+    def get_reviews(self):
+        '''Return a List of all Reviews associated with this Book.'''
+        return Review.objects.filter(book=self).order_by('-published')
+
+    def get_shelves(self):
+        '''Return a List of all Bookshelves this Book is in.'''
+        return Shelves.objects.filter(book=self)
 
 class Shelves(models.Model):
     '''
@@ -90,6 +113,9 @@ class Shelves(models.Model):
     book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
     shelf = models.ForeignKey(Bookshelf, on_delete=models.DO_NOTHING)
     added = models.DateField(auto_now=True)
+
+    class Meta:
+        unique_together = ('book', 'shelf')
 
     def __str__(self):
         return f'{self.book.title} in {self.shelf.name} (@{self.shelf.profile.username})'
@@ -117,6 +143,7 @@ class Review(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     text = models.TextField()
     star = models.IntegerField() # Is there a way to make this 1-5
+    published = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'Review for {self.book.title} by {self.profile.username}'
@@ -126,10 +153,20 @@ class Comment(models.Model):
     Encapsulates the idea of a Comment for a Bookshelf.
     ForeignKey to Bookshelf and Profile.
     '''
-    bookhelf = models.ForeignKey(Bookshelf, on_delete=models.CASCADE)
+    bookshelf = models.ForeignKey(Bookshelf, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     text = models.TextField()
+    published = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
         return f'Comment by {self.profile.username} on {self.bookshelf.name}'
+
+# class Image(models.Model):
+#     '''
+#     Encapsulates the idea of an image file, rather than a URL, that 
+#     is stored in the Django media directory.
+#     '''
+#     statusMessage = models.ForeignKey("StatusMessage", on_delete=models.CASCADE)
+#     image_file = models.ImageField(blank=True)
+#     timestamp = models.DateTimeField(auto_now=True)

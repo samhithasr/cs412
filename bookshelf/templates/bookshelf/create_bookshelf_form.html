@@ -1,0 +1,15 @@
+<!--
+File: bookshelf/templates/bookshelf/create_bookshelf_form.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 12/10/2024
+Description: The add a bookshelf form.
+
+-->
+{% extends 'bookshelf/base.html' %}
+{% block content %}
+<h2>Create Bookshelf</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Bookshelf</button>
+</form>
+{% endblock %}

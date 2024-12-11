@@ -1,7 +1,7 @@
 body {
     background: #3b5998;
     color: white;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serifx;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 div {
@@ -16,6 +16,7 @@ h2 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-decoration: underline;
 }
+
 h3 {
     font-size: larger;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -23,12 +24,14 @@ h3 {
 }
 
 table {
-    border: 0px solid;
+    border: none; /* No borders for the main table */
 }
 
 td {
-    border: 1px solid;
+    border: 2px solid #c5a98f; /* Wood border */
     text-align: center;
+    padding: 15px;
+    color: white; /* Ensure text color is white */
 }
 
 a {
@@ -38,18 +41,43 @@ a {
 a:hover {
     color: black;
 }
-  
+
 ::selection {
     color: #3b5998;
     background: white;
 }
 
-/* nav {
-    height: 100%;
-    width: 160px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background: #8b9dc3;
-} */
+.bookshelf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background: #d5b98b; /* Light wood background for the shelf */
+    border-radius: 8px; /* Slightly rounded edges */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shelf shadow */
+}
+
+.book-cell {
+    background-color: #f0e6d4; /* Lighter wood color for books */
+    border: 2px solid #b29568; /* Darker border to mimic wood */
+    padding: 15px;
+    text-align: center;
+    width: 150px; /* Fixed width for each book cell */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    border-radius: 5px; /* Slightly rounded corners */
+    transition: all 0.3s ease-in-out; /* Smooth transitions */
+    overflow: hidden; /* Ensure content fits */
+    color: #4d4d4d; /* Darker wood color */
+}
+
+.book-cell img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.book-cell p {
+    margin: 0;
+    font-size: 0.9em;
+}

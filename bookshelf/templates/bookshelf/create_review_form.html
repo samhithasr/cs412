@@ -1,0 +1,16 @@
+<!--
+File: bookshelf/templates/bookshelf/create_review_form.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 12/10/2024
+Description: The add a review form.
+-->
+
+{% extends 'bookshelf/base.html' %}
+
+{% block content %}
+<h1>Create a Review for {{ book.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+</form>
+{% endblock %}

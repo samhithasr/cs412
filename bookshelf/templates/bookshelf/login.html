@@ -1,0 +1,29 @@
+<!-- 
+File: bookshelf/templates/bookshelf/login.html
+Author: Samhitha Somavarapu (samhitha@bu.edu), 12/10/2024
+Description: The HTML file to let users log in. 
+This file "inherits" from base.html.
+-->
+
+{% extends 'bookshelf/base.html'  %}
+
+{% block content %}
+
+<h2>Login</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+
+    <input type="submit" name="submit" value="Login">
+    <!-- what page to show next after login success -->
+
+    {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{request.GET.next}}">
+    {% else %}
+        <input type="hidden" name="next" value="{% url 'book_show_all_profiles' %}">
+    {% endif %}
+</form>
+
+
+{% endblock %}
